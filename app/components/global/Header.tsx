@@ -7,7 +7,7 @@ export default function Header() {
     return (
         <motion.div 
             whileHover={{ scale: 1.4, translateY: 10 }}
-            className="flex flex-row gap-4 w-full m-auto justify-center items-center p-4 bg-gray-100 fixed top-0 text-md">
+            className="z-10 flex flex-row gap-4 w-full m-auto justify-center items-center p-4 bg-gray-100 fixed top-0 text-md">
             <div className="w-10 h-10"><FPLogo /></div>
             
             <motion.a 
