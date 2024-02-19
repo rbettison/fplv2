@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Leagues() {
 
-    const {leagues, selectedLeague, setSelectedLeague} = useContext(LeagueContext) as LeagueContextType;
+    const {leagues, selectedLeague, setSelectedLeagueFn} = useContext(LeagueContext) as LeagueContextType;
     console.log('leagues: ' + leagues);
     console.log('selectedLeague: ' + selectedLeague);
 
@@ -14,7 +14,11 @@ export default function Leagues() {
         <div className="flex flex-row justify-between p-4 items-center">
         <div>
         <label className="font-bold text-xl">Current league: </label>
-        <select onChange={(event) => setSelectedLeague({leagueId: event.target.value, leagueName: ""})} value={selectedLeague.leagueId}>
+        <select onChange={(event) => {
+            console.log('event.target.value: ' + event.target.value);
+            console.log('event.currentTarget.name: ' + event.currentTarget)
+            setSelectedLeagueFn({leagueId: event.target.value, leagueName: leagues.filter((league) => league.leagueId === event.target.value)[0].leagueName })
+        }} value={selectedLeague.leagueId}>
             {
                 leagues.map((league) => {
                 return (

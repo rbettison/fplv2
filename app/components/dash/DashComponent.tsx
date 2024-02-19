@@ -1,7 +1,26 @@
-export default function DashComponent() {
-    return (
-        <div className="h-full w-full bg-slate-200 rounded-lg">
+'use client';
+import { useContext } from "react";
+import { LeagueContext, LeagueContextType } from "@/app/contexts/LeaguesProvider";
+import Awards from "./Awards";
+import AsItStands from "./AsItStands";
+import SeasonTracker from "./SeasonTracker";
 
+export default function DashComponent() {
+    const {selectedLeague, gameWeek, pointsHistory} = useContext(LeagueContext) as LeagueContextType;
+
+
+    return (
+        <div className="min-h-full w-full bg-slate-200 rounded-lg p-5 shadow-md flex flex-col justify-center items-center">
+            <div className="font-bold text-4xl mb-4">{selectedLeague.leagueName}</div>
+            <div className="font-semibold text-2xl border-b-2 border-current mb-2">Gameweek {gameWeek} report</div>
+            <Awards />
+            <AsItStands />
+            {
+                pointsHistory != null && <SeasonTracker />
+
+
+            }
+            
         </div>
     )
 }
