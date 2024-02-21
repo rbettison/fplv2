@@ -4,6 +4,7 @@ import { LeagueContext, LeagueContextType } from "@/app/contexts/LeaguesProvider
 import Awards from "./Awards";
 import AsItStands from "./AsItStands";
 import SeasonTracker from "./SeasonTracker";
+import Link from "next/link";
 
 export default function DashComponent() {
     const {selectedLeague, gameWeek, pointsHistory, leagues} = useContext(LeagueContext) as LeagueContextType;
@@ -19,7 +20,7 @@ export default function DashComponent() {
                 pointsHistory != null && <SeasonTracker />
 
 
-            }</> : <div>Add a league to your dashboard to get started.</div>
+            }</> : <Link href="/dash/addLeague" className="underline text-xl font-bold">Add a league to your dashboard to get started.</Link>
         }
         </div>
     )

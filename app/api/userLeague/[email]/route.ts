@@ -30,7 +30,7 @@ export async function DELETE(req: Request, {params}: {params: {email: String}}) 
         if(!leagueExists) return NextResponse.json({message: "League is not in dashboard already."}, {status: 400})
 
         let newLeagues = leagues['leagues'].filter((league: {leagueId: string, leagueName: string}) => league.leagueId!=leagueId)
-        let newUser = await User.updateOne({email, leagues: newLeagues})
+        let newUser = await User.findOneAndUpdate({email: email}, {leagues: newLeagues})
 
         return NextResponse.json({message: "League successfully removed."}, {status: 200});
     } catch (err) {
@@ -41,6 +41,7 @@ export async function DELETE(req: Request, {params}: {params: {email: String}}) 
 
 export async function POST(req: Request, {params}: {params: {email: String}}) {
     const email = params.email;
+    console.log('email: ' + email);
 
     const {leagueId, leagueName} = await req.json();
 
@@ -57,8 +58,8 @@ export async function POST(req: Request, {params}: {params: {email: String}}) {
         if(leagueExists) return NextResponse.json({message: "League has already been added to the dash."}, {status: 400})
 
         let newLeagues = [...leagues['leagues'], {leagueName: leagueName, leagueId: leagueId}];
-        let newUser = await User.updateOne({email, leagues: newLeagues})
-
+        let newUser = await User.findOneAndUpdate({email: email}, {leagues: newLeagues})
+        
         return NextResponse.json({message: "League successfully added."}, {status: 200});
     } catch (err) {
         console.log(err);
